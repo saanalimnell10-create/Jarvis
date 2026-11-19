@@ -10,7 +10,6 @@ class HelpView(discord.ui.View):
 
     async def show_page(self, interaction: discord.Interaction, page: str):
         self.current_page = page
-        # Futuristinen sininen teemaväri tähän hätään
         embed = discord.Embed(color=discord.Color(0x00BFFF))
 
         if page == "home":
@@ -20,6 +19,7 @@ class HelpView(discord.ui.View):
                 "Select a category from the dropdown menu below or use the navigation buttons."
             )
             embed.add_field(name="🧠 Persona & Memory", value="Customize how Jarvis acts and what it remembers.", inline=False)
+            embed.add_field(name="🛡️ Moderation", value="Server management tools (purge, kick, ban, mute, lockdown).", inline=False)
             embed.add_field(name="⚙️ Settings & Channels", value="Manage allowed channels and check server status.", inline=False)
             embed.add_field(name="📜 All Commands", value="View a full list of available commands.", inline=False)
 
@@ -28,6 +28,17 @@ class HelpView(discord.ui.View):
             embed.description = "Customize Jarvis's behavior specifically for this server:"
             embed.add_field(name="`/jarvis persona [description]`", value="Sets Jarvis's personality and tone.", inline=False)
             embed.add_field(name="`/jarvis remember [info]`", value="Saves a custom memory or rule for this server.", inline=False)
+
+        elif page == "moderation":
+            embed.title = "🛡️ Moderation Commands"
+            embed.description = "Server management and safety tools (Prefix: `j.`):"
+            embed.add_field(name="`j.purge [amount]`", value="Deletes a specified number of messages.", inline=False)
+            embed.add_field(name="`j.kick @user [reason]`", value="Kicks a member from the server.", inline=False)
+            embed.add_field(name="`j.ban @user [reason]`", value="Bans a member from the server.", inline=False)
+            embed.add_field(name="`j.mute @user [mins] [reason]`", value="Timeouts or mutes a member.", inline=False)
+            embed.add_field(name="`j.unmute @user`", value="Removes a member's timeout.", inline=False)
+            embed.add_field(name="`j.warn @user [reason]`", value="Issues a warning to a member.", inline=False)
+            embed.add_field(name="`j.lockdown`", value="Locks or unlocks the current text channel.", inline=False)
 
         elif page == "settings":
             embed.title = "⚙️ Settings & Channels"
@@ -55,6 +66,7 @@ class HelpView(discord.ui.View):
         options=[
             discord.SelectOption(label="Home", description="Return to the main overview", emoji="🏠", value="home"),
             discord.SelectOption(label="Persona & Memory", description="Personality and server memories", emoji="🧠", value="persona"),
+            discord.SelectOption(label="Moderation", description="Purge, kick, ban, mute, lockdown", emoji="🛡️", value="moderation"),
             discord.SelectOption(label="Settings", description="Channels and server configs", emoji="⚙️", value="settings"),
             discord.SelectOption(label="All Commands", description="List every command", emoji="📜", value="all"),
         ]
